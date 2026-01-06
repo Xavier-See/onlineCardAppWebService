@@ -31,7 +31,7 @@ app.listen(port, () => {
 app.get('/allpokemon', async (req, res) => {
     try {
         let connection = await mysql.createConnection(dbConfig);
-        const [rows] = await connection.execute('SELECT * FROM wk8ex.cards');
+        const [rows] = await connection.execute('SELECT * FROM wk8ex.pokemon');
         res.json(rows);
     } catch (err) {
         console.error(err);
