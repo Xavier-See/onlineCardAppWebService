@@ -4,7 +4,7 @@ const mysql = require('mysql2/promise')
 require('dotenv').config();
 const port = 3000;
 
-// database config 
+// database config
 const dbConfig = {
     host: process.env.DB_HOST,
     user: process.env.DB_USER,
@@ -28,26 +28,26 @@ app.listen(port, () => {
 });
 
 // Example Route: Get all cards
-app.get('/allcards', async (req, res) => {
+app.get('/allpokemon', async (req, res) => {
     try {
         let connection = await mysql.createConnection(dbConfig);
-        const [rows] = await connection.execute('SELECT * FROM defaultdb.cards');
+        const [rows] = await connection.execute('SELECT * FROM wk8ex.cards');
         res.json(rows);
     } catch (err) {
         console.error(err);
-        res.status(500).json({ message: 'Server error for allcards' });
+        res.status(500).json({ message: 'Server error for allpokemon' });
     }
 });
 
 // Example Route: Create a new card
-app.post('/addcard', async (req, res) => {
-    const { card_name, card_pic } = req.body;
+app.post('/addpokemon', async (req, res) => {
+    const { pokemon_name, pokemon_pic } = req.body;
     try {
         let connection = await mysql.createConnection(dbConfig);
-        await connection.execute('INSERT INTO cards (card_name, card_pic) VALUES (?, ?)', [card_name, card_pic]);
-        res.status(201).json({ message: 'Card ' +card_name+ ' added successfully' });
+        await connection.execute('INSERT INTO cards (pokemon_name, pokemon_pic) VALUES (?, ?)', [pokemon_name, pokemon_pic]);
+        res.status(201).json({ message: 'Card ' +pokemon_name+ ' added successfully' });
     } catch (err) {
         console.error(err);
-        res.status(500).json({ message: 'Server error - could not add card '+card_name });
+        res.status(500).json({ message: 'Server error - could not add card '+pokemon_name });
     }
 });
