@@ -44,7 +44,7 @@ app.post('/addpokemon', async (req, res) => {
     const { pokemon_name, pokemon_pic } = req.body;
     try {
         let connection = await mysql.createConnection(dbConfig);
-        await connection.execute('INSERT INTO cards (pokemon_name, pokemon_pic) VALUES (?, ?)', [pokemon_name, pokemon_pic]);
+        await connection.execute('INSERT INTO pokemon (pokemon_name, pokemon_pic) VALUES (?, ?)', [pokemon_name, pokemon_pic]);
         res.status(201).json({ message: 'Card ' +pokemon_name+ ' added successfully' });
     } catch (err) {
         console.error(err);
